@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Display.h"
 #include "Shader.h"
-#include "Mesh.h"
 #include "Cube.h"
 #include "Texture.h"
 #include "Camera.h"
@@ -12,8 +11,6 @@
 void init_opengl();
 
 
-// camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float deltaTime = 0.0f;
 
 int main()
@@ -63,10 +60,10 @@ int main()
 		texture2.Bind(1);
 
 		// create transformations
-		glm::mat4 projection = glm::perspective(glm::radians(camera.GetZoom()), (float)Display::SCR_WIDTH / (float)Display::SCR_HEIGHT, 0.1f, 100.0f);
+		glm::mat4 projection = glm::perspective(glm::radians(camera_.GetZoom()), (float)Display::SCR_WIDTH / (float)Display::SCR_HEIGHT, 0.1f, 100.0f);
 
 		// camera/view transformation
-		glm::mat4 view = camera.GetViewMatrix();
+		glm::mat4 view = camera_.GetViewMatrix();
 
 		shader.SetMatrix4("view", view);
 		shader.SetMatrix4("projection", projection);

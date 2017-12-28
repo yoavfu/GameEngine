@@ -141,6 +141,7 @@ XCOPY "$(ProjectDir)Resources" "$(OutDir)Resources" /S /Y</Command>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\..\..\OpenGL\Glad\src\glad.c" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Camera_FixedData.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="main.cpp" />

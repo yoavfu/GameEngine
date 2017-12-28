@@ -1,4 +1,5 @@
 #include "Keyboard.h"
+#include "Camera.h"
 
 void Keyboard::key_callback(GLFWwindow * window, int key, int scancode, int action, int mods)
 {
@@ -7,11 +8,11 @@ void Keyboard::key_callback(GLFWwindow * window, int key, int scancode, int acti
 
 
 	if (key == GLFW_KEY_W)
-		camera.ProcessKeyboard(FORWARD);
+		camera_.ProcessKeyboard(FORWARD);
 	if (key == GLFW_KEY_S)
-		camera.ProcessKeyboard(BACKWARD);
+		camera_.ProcessKeyboard(BACKWARD);
 	if (key == GLFW_KEY_A)
-		camera.ProcessKeyboard(LEFT);
+		camera_.ProcessKeyboard(LEFT);
 	if (key == GLFW_KEY_D)
-		camera.ProcessKeyboard(RIGHT);
+		camera_.ProcessKeyboard(RIGHT);
 }
