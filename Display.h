@@ -3,7 +3,6 @@
 #include <string>
 
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 class Display
 {
@@ -16,8 +15,8 @@ public:
 	virtual ~Display();
 
 	void Clear(float red, float green, float blue, float alpha);
-
 	void EnableDepth();
+	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 	bool ShouldClose()
 	{

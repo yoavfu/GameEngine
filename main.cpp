@@ -33,7 +33,6 @@ int main()
 	};
 
 	Shader shader("./Resources/basicShader.vs", "./Resources/basicShader.fs");
-	//Mesh mesh(vertices, sizeof(vertices) / sizeof(vertices[0]), indices, sizeof(indices) / sizeof(indices[0]));
 	Cube cube;
 	Texture texture("./Resources/wall.jpg", Texture::IMAGE_FORMAT::RGB, true);
 	Texture texture2("./Resources/awesomeface.png", Texture::IMAGE_FORMAT::RGBA, true);
@@ -80,10 +79,6 @@ int main()
 
 			cube.Draw();
 		}
-
-
-
-
 
 		//// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		//// -------------------------------------------------------------------------------
