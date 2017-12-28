@@ -36,6 +36,9 @@ void Camera::ProcessKeyboard(Camera_Movement direction)
 		position_ -= right_ * velocity;
 	if (direction == RIGHT)
 		position_ += right_ * velocity;
+
+	// make sure the user stays at the ground level
+	position_.y = 0.0f;
 }
 
 // Processes input received from a mouse input system. Expects the offset value in both the x and y direction.
