@@ -15,20 +15,6 @@ enum Camera_Movement {
 class Camera
 {
 public:
-	// Camera Attributes
-	glm::vec3 position_;
-	glm::vec3 front_;
-	glm::vec3 up_;
-	glm::vec3 right_;
-	glm::vec3 worldUp_;
-	// Eular Angles
-	float yaw_;
-	float pitch_;
-	// Camera options
-	float movementSpeed_;
-	float mouseSensitivity_;
-	float zoom_;
-
 	// Default camera values
 	static inline  const float YAW = -90.0f;
 	static inline const float PITCH = 0.0f;
@@ -61,6 +47,21 @@ public:
 private:
 	// Calculates the front vector from the Camera's (updated) Eular Angles
 	void UpdateCameraVectors();
+
+private:
+	// Camera Attributes
+	glm::vec3 position_;
+	glm::vec3 front_;
+	glm::vec3 up_;
+	glm::vec3 right_;
+	glm::vec3 worldUp_;
+	// Eular Angles
+	float yaw_;
+	float pitch_;
+	// Camera options
+	float movementSpeed_;
+	float mouseSensitivity_;
+	float zoom_;
 };
 
 
