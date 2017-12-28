@@ -4,21 +4,15 @@
 extern float deltaTime;
 
 // Constructor with vectors
-Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch) : front_(glm::vec3(0.0f, 0.0f, -1.0f)), movementSpeed_(SPEED), mouseSensitivity_(SENSITIVTY), zoom_(ZOOM)
+Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch) : position_(position), worldUp_(up_), yaw_(yaw), pitch_(pitch), front_(glm::vec3(0.0f, 0.0f, -1.0f)), movementSpeed_(SPEED), mouseSensitivity_(SENSITIVTY), zoom_(ZOOM)
 {
-	position_ = position;
-	worldUp_ = up;
-	yaw_ = yaw;
-	pitch_ = pitch;
 	UpdateCameraVectors();
 }
 // Constructor with scalar values
-Camera::Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : front_(glm::vec3(0.0f, 0.0f, -1.0f)), movementSpeed_(SPEED), mouseSensitivity_(SENSITIVTY), zoom_(ZOOM)
+Camera::Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : yaw_(yaw), pitch_(pitch), front_(glm::vec3(0.0f, 0.0f, -1.0f)), movementSpeed_(SPEED), mouseSensitivity_(SENSITIVTY), zoom_(ZOOM)
 {
 	position_ = glm::vec3(posX, posY, posZ);
 	worldUp_ = glm::vec3(upX, upY, upZ);
-	yaw_ = yaw;
-	pitch_ = pitch;
 	UpdateCameraVectors();
 }
 
