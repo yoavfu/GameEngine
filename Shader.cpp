@@ -104,23 +104,52 @@ unsigned int Shader::CreateShader(const std::string & text, unsigned int shaderT
 	return shader;
 }
 
-// Sets a bool uniform (must call Use function before calling this function
+// Sets a bool uniform (must call Use function before calling this function)
 void Shader::SetBool(const std::string &name, bool value) const
 {
 	glUniform1i(glGetUniformLocation(programID_, name.c_str()), (int)value);
 }
-// Sets a int uniform (must call Use function before calling this function
+// Sets a int uniform (must call Use function before calling this function)
 void Shader::SetInt(const std::string &name, int value) const
 {
 	glUniform1i(glGetUniformLocation(programID_, name.c_str()), value);
 }
-// Sets a float uniform (must call Use function before calling this function
+// Sets a float uniform (must call Use function before calling this function)
 void Shader::SetFloat(const std::string &name, float value) const
 {
 	glUniform1f(glGetUniformLocation(programID_, name.c_str()), value);
 }
-// Sets a mat4 uniform (must call Use function before calling this function
-void Shader::SetMatrix4(const std::string & name, glm::mat4& value) const
+// Sets a vec2 uniform (must call Use function before calling this function)
+void Shader::SetVec2(const std::string &name, const glm::vec2 &value) const
+{
+	glUniform2fv(glGetUniformLocation(programID_, name.c_str()), 1, &value[0]);
+}
+void Shader::SetVec2(const std::string &name, float x, float y) const
+{
+	glUniform2f(glGetUniformLocation(programID_, name.c_str()), x, y);
+}
+// Sets a vec3 uniform (must call Use function before calling this function)
+void Shader::SetVec3(const std::string & name, glm::vec3& value) const
+{
+	glUniform3fv(glGetUniformLocation(programID_, name.c_str()), 1, &value[0]);
+}
+// Sets a vec3 uniform (must call Use function before calling this function)
+void Shader::SetVec3(const std::string &name, float x, float y, float z) const
+{
+	glUniform3f(glGetUniformLocation(programID_, name.c_str()), x, y, z);
+}
+// Sets a mat2 uniform (must call Use function before calling this function)
+void Shader::SetMat2(const std::string &name, const glm::mat2 &mat) const
+{
+	glUniformMatrix2fv(glGetUniformLocation(programID_, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+}
+// Sets a mat3 uniform (must call Use function before calling this function)
+void Shader::SetMat3(const std::string &name, const glm::mat3 &mat) const
+{
+	glUniformMatrix3fv(glGetUniformLocation(programID_, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+}
+// Sets a mat4 uniform (must call Use function before calling this function)
+void Shader::SetMat4(const std::string & name, glm::mat4& value) const
 {
 	glUniformMatrix4fv(glGetUniformLocation(programID_, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
 }
