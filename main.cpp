@@ -32,13 +32,20 @@ int main()
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
 
-	Shader shader("./Resources/basicShader.vs", "./Resources/basicShader.fs");
+	//Shader shader("./Resources/basicShader.vs", "./Resources/basicShader.fs");
+
+	// build and compile our shader zprogram
+	// ------------------------------------
+	Shader lightingShader("Resources/Lighting/1.colors.vs", "Resources/Lighting/1.colors.fs");
+	Shader lampShader("Resources/Lamp/1.lamp.vs", "Resources/Lamp/1.lamp.fs");
+
 	Cube cube;
-	Texture texture("./Resources/wall.jpg", Texture::IMAGE_FORMAT::RGB, true);
-	Texture texture2("./Resources/awesomeface.png", Texture::IMAGE_FORMAT::RGBA, true);
-	shader.Use();
-	shader.SetInt("texture1", 0);
-	shader.SetInt("texture2", 1);
+	Cube lamp;
+	//Texture texture("./Resources/wall.jpg", Texture::IMAGE_FORMAT::RGB, true);
+	//Texture texture2("./Resources/awesomeface.png", Texture::IMAGE_FORMAT::RGBA, true);
+	//shader.Use();
+	//shader.SetInt("texture1", 0);
+	//shader.SetInt("texture2", 1);
 
 	float lastFrame = 0.0f;
 	// render loop
@@ -53,32 +60,46 @@ int main()
 
 		//// render
 		display.Clear(0.2f, 0.3f, 0.3f, 1.0f);
-		shader.Use();
+		// be sure to activate shader when setting uniforms/drawing objects
+		lightingShader.Use();
+		lightingShader.SetVec3("objectColor", 1.0f, 0.5f, 0.31f);
+		lightingShader.SetVec3("lightColor", 1.0f, 1.0f, 1.0f);
 
-		texture.Bind(0);
-		texture2.Bind(1);
-
-		// create transformations
+		//texture.Bind(0);
+		//texture2.Bind(1);
+		// view/projection/model transformations
 		glm::mat4 projection = glm::perspective(glm::radians(camera_.GetZoom()), (float)Display::SCR_WIDTH / (float)Display::SCR_HEIGHT, 0.1f, 100.0f);
-
-		// camera/view transformation
 		glm::mat4 view = camera_.GetViewMatrix();
+		glm::mat4 model;
+		lightingShader.SetMat4("projection", projection);
+		lightingShader.SetMat4("view", view);
+		// world transformation
+		lightingShader.SetMat4("model", model);
+		cube.Draw();
 
-		shader.SetMatrix4("view", view);
-		shader.SetMatrix4("projection", projection);
+		// also draw the lamp object
+		lampShader.Use();
+		lampShader.SetMat4("projection", projection);
+		lampShader.SetMat4("view", view);
+		model = glm::mat4();
+		glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+		model = glm::translate(model, lightPos);
+		model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
+		lampShader.SetMat4("model", model);
+		lamp.Draw();
 
-		for (unsigned int i = 0; i < 10; i++)
-		{
-			// calculate the model matrix for each object and pass it to shader before drawing
-			glm::mat4 model;
-			model = glm::translate(model, cubePositions[i]);
-			float angle = 20.0f * i;
-			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+		//for (unsigned int i = 0; i < 10; i++)
+		//{
+		//	// calculate the model matrix for each object and pass it to shader before drawing
+		//	glm::mat4 model;
+		//	model = glm::translate(model, cubePositions[i]);
+		//	float angle = 20.0f * i;
+		//	model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
 
-			shader.SetMatrix4("model", model);
+		//	shader.SetMatrix4("model", model);
 
-			cube.Draw();
-		}
+		//	cube.Draw();
+		//}
 
 		//// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		//// -------------------------------------------------------------------------------
