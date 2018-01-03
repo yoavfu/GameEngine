@@ -144,6 +144,7 @@ XCOPY "$(ProjectDir)Resources" "$(OutDir)Resources" /S /Y</Command>
     <ClCompile Include="Camera_FixedData.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="GameEngine.cpp" />
+    <ClCompile Include="InputEngine.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Display.cpp" />
@@ -157,6 +158,7 @@ XCOPY "$(ProjectDir)Resources" "$(OutDir)Resources" /S /Y</Command>
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Display.h" />
     <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="InputEngine.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Shader.h" />

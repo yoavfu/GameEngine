@@ -19,9 +19,6 @@ Display::Display(int width, int height, std::string title)
 	}
 	glfwMakeContextCurrent(window_);
 	glfwSetFramebufferSizeCallback(window_, framebuffer_size_callback);
-	glfwSetKeyCallback(window_, Keyboard::key_callback);
-	glfwSetCursorPosCallback(window_, Mouse::mouse_callback);
-	glfwSetScrollCallback(window_, Mouse::scroll_callback);
 
 	// glad: load all OpenGL function pointers
 	// ---------------------------------------
@@ -52,6 +49,14 @@ void Display::init_opengl()
 #ifdef __APPLE__
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
 #endif
+}
+
+void Display::SetInputCallbacks(void * inputCallbackInstance)
+{
+	glfwSetWindowUserPointer(window_, inputCallbackInstance);
+	glfwSetKeyCallback(window_, Keyboard::key_callback);
+	glfwSetCursorPosCallback(window_, Mouse::mouse_callback);
+	glfwSetScrollCallback(window_, Mouse::scroll_callback);
 }
 
 //// render

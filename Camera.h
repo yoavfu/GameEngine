@@ -66,5 +66,3 @@ private:
 	float zoom_;
 };
 
-
-extern Camera camera_;

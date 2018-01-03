@@ -15,7 +15,7 @@ public:
 	virtual ~Display();
 
 	void init_opengl();
-
+	void SetInputCallbacks(void *inputCallbackInstance);
 	void Clear(float red, float green, float blue, float alpha);
 	void EnableDepth();
 	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);

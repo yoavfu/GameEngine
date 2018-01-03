@@ -2,8 +2,10 @@
 #include "Shader.h"
 #include "Cube.h"
 
-GameEngine::GameEngine()
+GameEngine::GameEngine() :
+	camera_(glm::vec3(0.0f, 0.0f, 3.0f))
 {
+	display_.SetInputCallbacks((void *)this);
 	display_.EnableDepth();
 }
 
@@ -64,4 +66,39 @@ void GameEngine::GameLoop()
 
 		display_.Update();
 	}
+}
+
+void GameEngine::KeyboardCallback(int key, int scancode, int action, int mods)
+{
+	if (key == GLFW_KEY_W)
+		camera_.ProcessKeyboard(FORWARD);
+	if (key == GLFW_KEY_S)
+		camera_.ProcessKeyboard(BACKWARD);
+	if (key == GLFW_KEY_A)
+		camera_.ProcessKeyboard(LEFT);
+	if (key == GLFW_KEY_D)
+		camera_.ProcessKeyboard(RIGHT);
+}
+
+void GameEngine::Mousecallback(double xpos, double ypos)
+{
+	if (firstMouse_)
+	{
+		lastX_ = xpos;
+		lastY_ = ypos;
+		firstMouse_ = false;
+	}
+
+	float xoffset = xpos - lastX_;
+	float yoffset = lastY_ - ypos; // reversed since y-coordinates go from bottom to top
+
+	lastX_ = xpos;
+	lastY_ = ypos;
+
+	camera_.ProcessMouseMovement(xoffset, yoffset);
+}
+
+void GameEngine::MouseScrollCallback(double xoffset, double yoffset)
+{
+	camera_.ProcessMouseScroll(yoffset);
 }
