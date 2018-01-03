@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include <glm/glm.hpp>
+#include "InputEngine.h"
 
 float deltaTime_;
 
@@ -40,6 +41,52 @@ void Camera::ProcessKeyboard(Camera_Movement direction)
 	// make sure the user stays at the ground level
 	position_.y = 0.0f;
 }
+
+//void Camera::OnKeyW(OnKeyWListener::KeyWMessage & msg)
+//{
+//	float velocity = CalcVelocity();
+//	position_ += front_ * velocity;
+//}
+//
+//void Camera::OnKeyD(OnKeyDListener::KeyDMessage & msg)
+//{
+//	float velocity = CalcVelocity();
+//	position_ += right_ * velocity;
+//}
+//
+//void Camera::OnKeyA(OnKeyAListener::KeyAMessage & msg)
+//{
+//	float velocity = CalcVelocity();
+//	position_ -= right_ * velocity;
+//}
+//
+//void Camera::OnKeyS(OnKeySListener::KeySMessage & msg)
+//{
+//	float velocity = CalcVelocity();
+//	position_ -= front_ * velocity;
+//}
+
+void Camera::OnKeyboardEvent(const KeyboardMessage & msg)
+{
+	float velocity = movementSpeed_ * deltaTime_;
+	if (msg.m_Type == MSG_KEY_W)
+		position_ += front_ * velocity;
+	if (msg.m_Type == MSG_KEY_S)
+		position_ -= front_ * velocity;
+	if (msg.m_Type == MSG_KEY_A)
+		position_ -= right_ * velocity;
+	if (msg.m_Type == MSG_KEY_D)
+		position_ += right_ * velocity;
+
+	// make sure the user stays at the ground level
+	position_.y = 0.0f;
+}
+
+void Camera::RegisterMsg()
+{
+	InputEngine::getInstance().keyboardInput_.Bind<Camera, KeyboardMessage, &Camera::OnKeyboardEvent>(MSG_KEYBOARD, *this);
+}
+	
 
 // Processes input received from a mouse input system. Expects the offset value in both the x and y direction.
 void Camera::ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch)

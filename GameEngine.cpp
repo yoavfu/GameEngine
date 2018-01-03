@@ -68,18 +68,6 @@ void GameEngine::GameLoop()
 	}
 }
 
-void GameEngine::KeyboardCallback(int key, int scancode, int action, int mods)
-{
-	if (key == GLFW_KEY_W)
-		camera_.ProcessKeyboard(FORWARD);
-	if (key == GLFW_KEY_S)
-		camera_.ProcessKeyboard(BACKWARD);
-	if (key == GLFW_KEY_A)
-		camera_.ProcessKeyboard(LEFT);
-	if (key == GLFW_KEY_D)
-		camera_.ProcessKeyboard(RIGHT);
-}
-
 void GameEngine::Mousecallback(double xpos, double ypos)
 {
 	if (firstMouse_)

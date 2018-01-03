@@ -9,13 +9,11 @@ public:
 	GameEngine();
 	virtual ~GameEngine();
 	void GameLoop();
-	void KeyboardCallback(int key, int scancode, int action, int mods);
 	void Mousecallback(double xpos, double ypos);
 	void MouseScrollCallback(double xoffset, double yoffset);
 
 private:
 	Display display_;
-	InputEngine inputEngine_;
 	Camera camera_;
 
 	// TBD move to mouse class

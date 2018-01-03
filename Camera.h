@@ -1,7 +1,8 @@
 #pragma once
 #include <glm/gtc/matrix_transform.hpp>
-
 #include <vector>
+#include "Event.h"
+#include "Keyboard.h"
 
 extern float deltaTime_;
 
@@ -14,7 +15,7 @@ enum Camera_Movement {
 };
 
 // An abstract camera class that processes input and calculates the corresponding Eular Angles, Vectors and Matrices for use in OpenGL
-class Camera
+class Camera : OnKeyboardEventListener, Observer
 {
 public:
 	// Default camera values
@@ -34,6 +35,8 @@ public:
 
 	// Processes input received from any keyboard-like input system. Accepts input parameter in the form of camera defined ENUM (to abstract it from windowing systems)
 	void ProcessKeyboard(Camera_Movement direction);
+	virtual void OnKeyboardEvent(const KeyboardMessage &msg);
+	virtual void RegisterMsg();
 
 	// Processes input received from a mouse input system. Expects the offset value in both the x and y direction.
 	void ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch = true);
@@ -49,6 +52,10 @@ public:
 private:
 	// Calculates the front vector from the Camera's (updated) Eular Angles
 	void UpdateCameraVectors();
+	inline float CalcVelocity()
+	{
+		return movementSpeed_ * deltaTime_;
+	};
 
 private:
 	// Camera Attributes
