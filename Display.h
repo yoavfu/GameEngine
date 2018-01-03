@@ -14,6 +14,8 @@ public:
 	Display(int width = 800, int height = 600, std::string title = "My window");
 	virtual ~Display();
 
+	void init_opengl();
+
 	void Clear(float red, float green, float blue, float alpha);
 	void EnableDepth();
 	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);

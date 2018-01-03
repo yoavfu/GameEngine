@@ -7,6 +7,7 @@
 
 Display::Display(int width, int height, std::string title)
 {
+	init_opengl();
 	// glfw window creation
 	// --------------------
 	window_ = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
@@ -26,7 +27,7 @@ Display::Display(int width, int height, std::string title)
 	// ---------------------------------------
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
+		std::cerr << "Failed to initialize GLAD" << std::endl;
 		throw("Failed to initialize GLAD");
 	}
 }
@@ -37,6 +38,20 @@ Display::~Display()
 	// glfw: terminate, clearing all previously allocated GLFW resources.
 	// ------------------------------------------------------------------
 	glfwTerminate();
+}
+
+void Display::init_opengl()
+{
+	// glfw: initialize and configure
+	// ------------------------------
+	glfwInit();
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+#ifdef __APPLE__
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
+#endif
 }
 
 //// render
