@@ -1,25 +1,34 @@
 #include "Event.h"
+#include <algorithm>
 
-MessagingBase::~MessagingBase() {
-	while (!m_Bindings.empty()) {
-		Binding binding = m_Bindings.back();
-		m_Bindings.pop_back();
-		binding.m_Observed->Unbind(this);
-		binding.m_Observer->Unbind(this);
-	};
+MessagingBase::~MessagingBase() 
+{
+	binding_.clear();
 }
 
-void MessagingBase::SendMessage(const Message& msg) {
-	for (size_t i = 0; i < m_Bindings.size(); ++i)
-		if (m_Bindings[i].m_Type == MSG_UNKNOWN || m_Bindings[i].m_Type == msg.m_Type)
-			m_Bindings[i].m_Handler(m_Bindings[i].m_Observer, msg);
+void MessagingBase::SendMessage(const Message& msg) 
+{
+	if (binding_.count(msg.m_Type))
+	{
+		for (Binding &bind : binding_[msg.m_Type])
+			bind.handler_(bind.observer_, msg);
+	}
 }
 
-void MessagingBase::Unbind(const MessagingBase* object) {
-	auto i = m_Bindings.begin();
-	while (i != m_Bindings.end())
-		if (i->m_Observed == object || i->m_Observer == object)
-			i = m_Bindings.erase(i);
-		else
-			++i;
+void MessagingBase::Unbind(const Observer* object) 
+{
+	for (auto &bindVec : binding_)
+	{
+		struct IsSameObserver
+		{
+			explicit IsSameObserver(const Observer* object) : object_(object) { };
+			inline bool operator()(const Binding other) const { return object_ == other.observer_; }
+		private:
+			const Observer *object_;
+		};
+
+		auto it = std::find_if(bindVec.second.begin(), bindVec.second.end(), IsSameObserver(object));
+		if (it != bindVec.second.end())
+			bindVec.second.erase(it);
+	}
 }

@@ -1,6 +1,5 @@
 #include "Camera.h"
 #include <glm/glm.hpp>
-#include "InputEngine.h"
 
 float deltaTime_;
 
@@ -69,13 +68,13 @@ void Camera::ProcessKeyboard(Camera_Movement direction)
 void Camera::OnKeyboardEvent(const KeyboardMessage & msg)
 {
 	float velocity = movementSpeed_ * deltaTime_;
-	if (msg.m_Type == MSG_KEY_W)
+	if (msg.keyPressed_ == MSG_KEY_W)
 		position_ += front_ * velocity;
-	if (msg.m_Type == MSG_KEY_S)
+	if (msg.keyPressed_ == MSG_KEY_S)
 		position_ -= front_ * velocity;
-	if (msg.m_Type == MSG_KEY_A)
+	if (msg.keyPressed_ == MSG_KEY_A)
 		position_ -= right_ * velocity;
-	if (msg.m_Type == MSG_KEY_D)
+	if (msg.keyPressed_ == MSG_KEY_D)
 		position_ += right_ * velocity;
 
 	// make sure the user stays at the ground level
@@ -84,7 +83,7 @@ void Camera::OnKeyboardEvent(const KeyboardMessage & msg)
 
 void Camera::RegisterMsg()
 {
-	InputEngine::getInstance().keyboardInput_.Bind<Camera, KeyboardMessage, &Camera::OnKeyboardEvent>(MSG_KEYBOARD, *this);
+	InputEngine::Keyboard::getInstance().Bind<Camera, KeyboardMessage, &Camera::OnKeyboardEvent>(MSG_KEYBOARD, this);
 }
 	
 

@@ -15,7 +15,7 @@ enum Camera_Movement {
 };
 
 // An abstract camera class that processes input and calculates the corresponding Eular Angles, Vectors and Matrices for use in OpenGL
-class Camera : OnKeyboardEventListener, Observer
+class Camera : OnKeyboardEventListener, public Observer
 {
 public:
 	// Default camera values

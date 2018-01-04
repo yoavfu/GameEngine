@@ -5,6 +5,7 @@
 GameEngine::GameEngine() :
 	camera_(glm::vec3(0.0f, 0.0f, 3.0f))
 {
+	camera_.RegisterMsg();
 	display_.SetInputCallbacks((void *)this);
 	display_.EnableDepth();
 }

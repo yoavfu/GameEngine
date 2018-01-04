@@ -54,7 +54,7 @@ void Display::init_opengl()
 void Display::SetInputCallbacks(void * inputCallbackInstance)
 {
 	glfwSetWindowUserPointer(window_, inputCallbackInstance);
-	glfwSetKeyCallback(window_, Keyboard::key_callback);
+	glfwSetKeyCallback(window_, InputEngine::Keyboard::key_callback);
 	glfwSetCursorPosCallback(window_, Mouse::mouse_callback);
 	glfwSetScrollCallback(window_, Mouse::scroll_callback);
 }

@@ -141,11 +141,9 @@ XCOPY "$(ProjectDir)Resources" "$(OutDir)Resources" /S /Y</Command>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\..\..\OpenGL\Glad\src\glad.c" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Camera_FixedData.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="GameEngine.cpp" />
-    <ClCompile Include="InputEngine.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Display.cpp" />
@@ -160,7 +158,6 @@ XCOPY "$(ProjectDir)Resources" "$(OutDir)Resources" /S /Y</Command>
     <ClInclude Include="Display.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="GameEngine.h" />
-    <ClInclude Include="InputEngine.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Shader.h" />
