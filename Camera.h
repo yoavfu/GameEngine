@@ -54,6 +54,11 @@ public:
 		return position_;
 	}
 
+	inline glm::vec3 GetFront()
+	{
+		return front_;
+	}
+
 private:
 	// Calculates the front vector from the Camera's (updated) Eular Angles
 	void UpdateCameraVectors();
