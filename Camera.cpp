@@ -41,30 +41,6 @@ void Camera::ProcessKeyboard(Camera_Movement direction)
 	position_.y = 0.0f;
 }
 
-//void Camera::OnKeyW(OnKeyWListener::KeyWMessage & msg)
-//{
-//	float velocity = CalcVelocity();
-//	position_ += front_ * velocity;
-//}
-//
-//void Camera::OnKeyD(OnKeyDListener::KeyDMessage & msg)
-//{
-//	float velocity = CalcVelocity();
-//	position_ += right_ * velocity;
-//}
-//
-//void Camera::OnKeyA(OnKeyAListener::KeyAMessage & msg)
-//{
-//	float velocity = CalcVelocity();
-//	position_ -= right_ * velocity;
-//}
-//
-//void Camera::OnKeyS(OnKeySListener::KeySMessage & msg)
-//{
-//	float velocity = CalcVelocity();
-//	position_ -= front_ * velocity;
-//}
-
 void Camera::OnKeyboardEvent(const KeyboardMessage & msg)
 {
 	float velocity = movementSpeed_ * deltaTime_;
