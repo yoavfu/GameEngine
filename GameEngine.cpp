@@ -155,27 +155,19 @@ void GameEngine::GameLoop()
 			cube.Draw();
 		}
 
+		// also draw the lamp object(s)
+		lampShader.Use();
+		lampShader.SetMat4("projection", projection);
+		lampShader.SetMat4("view", view);
+
 		for (unsigned int i = 0; i < 4; i++)
 		{
 			glm::mat4 model;
 			model = glm::translate(model, pointLightPositions[i]);
 			model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
 			lampShader.SetMat4("model", model);
-			cube.Draw();
+			lamp.Draw();
 		}
-
-		// also draw the lamp object
-		lampShader.Use();
-		lampShader.SetMat4("projection", projection);
-		lampShader.SetMat4("view", view);
-		model = glm::mat4();
-		// change the light's position values over time (can be done anywhere in the render loop actually, but try to do it at least before using the light source positions)
-		//lightPos.x = 1.0f + sin(glfwGetTime()) * 2.0f;
-		//lightPos.y = sin(glfwGetTime() / 2.0f) * 1.0f;
-		model = glm::translate(model, lightPos);
-		model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
-		lampShader.SetMat4("model", model);
-		//lamp.Draw();
 
 		display_.Update();
 	}
