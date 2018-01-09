@@ -11,6 +11,11 @@ public:
 	Shader(const string& vertexShader, const string& fragmentShader);
 	virtual ~Shader();
 
+
+	inline unsigned int GetId() const
+	{
+		return programID_;
+	}
 	void Use() const;
 	// utility uniform functions
 	// Sets a bool uniform (must call Use function before calling this function)
