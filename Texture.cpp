@@ -4,7 +4,32 @@
 #include <iostream>
 #include <assert.h>
 
-Texture::Texture(const std::string & fileName, bool flipImage)
+Texture::Texture(const std::string & fileName, bool flipImage) :
+	path_(fileName)
+{
+	LoadTexture(fileName, flipImage);
+}
+
+Texture::Texture(const std::string & fileName, const std::string & type, bool flipImage) :
+	path_(fileName), type_(type)
+{
+	LoadTexture(fileName, flipImage);
+}
+
+Texture::~Texture()
+{
+	glDeleteTextures(1, &id_);
+}
+
+void Texture::Bind(unsigned int unit)
+{
+	assert(unit >= 0 && unit <= 31);
+
+	glActiveTexture(GL_TEXTURE0 + unit);
+	glBindTexture(GL_TEXTURE_2D, id_);
+}
+
+void Texture::LoadTexture(const std::string & fileName, bool flipImage)
 {
 	int width, height, numOfComponents;
 	// load image, create texture and generate mipmaps
@@ -19,7 +44,7 @@ Texture::Texture(const std::string & fileName, bool flipImage)
 	}
 	else
 	{
-		glGenTextures(1, &textureID_);
+		glGenTextures(1, &id_);
 
 		GLenum format;
 		if (numOfComponents == 1)
@@ -29,7 +54,7 @@ Texture::Texture(const std::string & fileName, bool flipImage)
 		else if (numOfComponents == 4)
 			format = GL_RGBA;
 
-		glBindTexture(GL_TEXTURE_2D, textureID_);
+		glBindTexture(GL_TEXTURE_2D, id_);
 		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, imageData);
 		glGenerateMipmap(GL_TEXTURE_2D);
 
@@ -40,18 +65,5 @@ Texture::Texture(const std::string & fileName, bool flipImage)
 
 		stbi_image_free(imageData);
 	}
-}
-
-Texture::~Texture()
-{
-	glDeleteTextures(1, &textureID_);
-}
-
-void Texture::Bind(unsigned int unit)
-{
-	assert(unit >= 0 && unit <= 31);
-
-	glActiveTexture(GL_TEXTURE0 + unit);
-	glBindTexture(GL_TEXTURE_2D, textureID_);
 }
 
