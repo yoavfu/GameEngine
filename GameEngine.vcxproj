@@ -147,7 +147,6 @@ XCOPY "$(ProjectDir)Resources" "$(OutDir)Resources" /S /Y</Command>
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Display.cpp" />
-    <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Mouse.cpp" />
@@ -162,7 +161,6 @@ XCOPY "$(ProjectDir)Resources" "$(OutDir)Resources" /S /Y</Command>
     <ClInclude Include="Event.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="Keyboard.h" />
-    <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Mouse.h" />
