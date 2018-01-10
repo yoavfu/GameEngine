@@ -68,10 +68,8 @@ void Mesh::Draw(Shader shader)
 	unsigned int heightNr = 1;
 	for (unsigned int i = 0; i < textures_.size(); i++)
 	{
-		glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
-										  // retrieve texture number (the N in diffuse_textureN)
 		string number;
-		string name = textures_[i].type;
+		const string name = textures_[i].GetType();
 		if (name == "texture_diffuse")
 			number = std::to_string(diffuseNr++);
 		else if (name == "texture_specular")
@@ -82,9 +80,9 @@ void Mesh::Draw(Shader shader)
 			number = std::to_string(heightNr++); // transfer unsigned int to stream
 
 												 // now set the sampler to the correct texture unit
-		glUniform1i(glGetUniformLocation(shader.GetId(), (name + number).c_str()), i);
+		shader.SetInt(name + number, i);
 		// and finally bind the texture
-		glBindTexture(GL_TEXTURE_2D, textures_[i].id);
+		textures_[i].Bind(i);
 	}
 
 	// draw mesh
