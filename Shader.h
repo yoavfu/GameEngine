@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include <glm\glm.hpp>
-#include "Material.h"
 
 using namespace std;
 
@@ -38,8 +37,6 @@ public:
 	void SetMat3(const std::string & name, const glm::mat3 & mat) const;
 	// Sets a mat4 uniform (must call Use function before calling this function)
 	void SetMat4(const std::string &name, glm::mat4& value) const;
-	// Sets a Material uniform (must call Use function before calling this function)
-	void SetMaterial(const std::string &name, Material* value) const;
 
 private:
 	std::string LoadShaderFromFile(const std::string & fileName) const;

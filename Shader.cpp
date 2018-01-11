@@ -153,11 +153,3 @@ void Shader::SetMat4(const std::string & name, glm::mat4& value) const
 {
 	glUniformMatrix4fv(glGetUniformLocation(programID_, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
 }
-// Sets a Material uniform (must call Use function before calling this function)
-void Shader::SetMaterial(const std::string & name, Material * value) const
-{
-	SetVec3(name + value->AMBIENT_NAME, value->ambient_);
-	SetVec3(name + value->DIFFUSE_NAME, value->diffuse_);
-	SetVec3(name + value->SPECULAR_NAME, value->specular_);
-	SetFloat(name + value->SHININESS_NAME, value->shininess_);
-}
