@@ -13,20 +13,21 @@ class Model
 {
 public:	
 	/*  Functions   */
-	Model(string path);
+	Model(const string &path);
 	virtual ~Model();
 
 	void Draw(Shader shader);
 
 private:
 	/*  Model Data  */
-	vector<Mesh> meshes;
-	vector<Texture> texturesLoaded_;
+	vector<Mesh> meshes_;
+	vector<shared_ptr<Texture>> texturesLoaded_;
+	std::string directory_;
 	/*  Functions   */
-	void LoadModel(string path);
+	void LoadModel(const string &path);
 	void ProcessNode(aiNode *node, const aiScene *scene);
 	Mesh ProcessMesh(aiMesh *mesh, const aiScene *scene);
-	vector<Texture> LoadMaterialTextures(aiMaterial *mat, aiTextureType type,
+	vector<shared_ptr<Texture>> LoadMaterialTextures(aiMaterial *mat, aiTextureType type,
 		string typeName);
 };
 
