@@ -1,10 +1,11 @@
 #pragma once
 
-#include <glad/glad.h> // holds all OpenGL type declarations
+#include <glm\glm.hpp> // holds all OpenGL type declarations
 #include "Shader.h"
 #include "Texture.h"
 #include <string>
 #include <vector>
+#include <memory>
 
 using namespace std;
 
@@ -35,16 +36,16 @@ public:
 	/*  Mesh Data  */
 	vector<Vertex> vertices_;
 	vector<unsigned int> indices_;
-	vector<Texture> textures_;
+	vector<shared_ptr<Texture>> textures_;
 	unsigned int VAO_;
 
 	/*  Functions  */
 	// constructor
-	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures);
+	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<shared_ptr<Texture>> textures);
 	virtual ~Mesh();
 
 	// render the mesh
-	void Draw(Shader shader);
+	void Draw(const Shader &shader);
 
 private:
 	/*  Render data  */

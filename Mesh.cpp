@@ -2,17 +2,14 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glad\glad.h>
 
 /*  Functions  */
 // constructor
-Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures)
+Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<shared_ptr<Texture>> textures) :
+	vertices_(std::move(vertices)), indices_(std::move(indices)), textures_(std::move(textures))
 {
-	this->vertices_ = vertices;
-	this->indices_ = indices;
-	this->textures_ = textures;
-
 	// now that we have all the required data, set the vertex buffers and its attribute pointers.
 	SetupMesh();
 }
@@ -59,7 +56,7 @@ void Mesh::SetupMesh()
 }
 
 // render the mesh
-void Mesh::Draw(Shader shader)
+void Mesh::Draw(const Shader &shader)
 {
 	// bind appropriate textures
 	unsigned int diffuseNr = 1;
@@ -69,7 +66,7 @@ void Mesh::Draw(Shader shader)
 	for (unsigned int i = 0; i < textures_.size(); i++)
 	{
 		string number;
-		const string name = textures_[i].GetType();
+		const string name = textures_[i]->GetType();
 		if (name == "texture_diffuse")
 			number = std::to_string(diffuseNr++);
 		else if (name == "texture_specular")
@@ -82,7 +79,7 @@ void Mesh::Draw(Shader shader)
 												 // now set the sampler to the correct texture unit
 		shader.SetInt(name + number, i);
 		// and finally bind the texture
-		textures_[i].Bind(i);
+		textures_[i]->Bind(i);
 	}
 
 	// draw mesh
